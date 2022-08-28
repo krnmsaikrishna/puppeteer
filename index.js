@@ -4,7 +4,7 @@ const app = express()
 
 const port = process.env.PORT || 3131
 
-const screenshot = require('/screenshot')
+const screenshot = require('./screenshot')
 
 app.get('/', (req, res) => res.status(200).json({ status: 'ok' }))
 
