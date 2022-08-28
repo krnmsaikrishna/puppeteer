@@ -30,7 +30,7 @@ function screenshot(url) {
 
       await page.waitForTimeout(1000)
 
-      await page.emulateMedia('screen')
+      await page.emulateMediaType('screen')
 
       const buffer = await page.screenshot({
 
