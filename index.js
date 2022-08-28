@@ -28,7 +28,7 @@ function screenshot(url) {
 
       })
 
-      await page.waitFor(1000)
+      await page.waitForTimeout(1000)
 
       await page.emulateMedia('screen')
 
