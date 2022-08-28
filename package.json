@@ -10,10 +10,6 @@
   "author": "Iftakhar Hasan",
   "license": "UNLICENSED", 
   "dependencies": {
-
-
-
 "express": "^4.17.1"
-
   }
 }
