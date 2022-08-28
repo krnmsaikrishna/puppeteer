@@ -9,45 +9,29 @@ const port = process.env.PORT || 3131
 function screenshot(url) {
 
   return new Promise((resolve, reject) => {
-
     ;(async () => {
-
       const browser = await puppeteer.launch({
-
-        // headless: true, // debug only
-
+        headless: true,
         args: ['--no-sandbox']
-
       })
 
       const page = await browser.newPage()
 
       await page.goto(url, {
-
         waitUntil: ['load', 'networkidle0', 'domcontentloaded']
-
       })
 
       await page.waitForTimeout(1000)
-
       await page.emulateMediaType('screen')
-
       const buffer = await page.screenshot({
-
         fullPage: true,
-
         type: 'png'
-
       })
 
       await browser.close()
-
       resolve(buffer)
-
     })()
-
   })
-
 }
 
 
