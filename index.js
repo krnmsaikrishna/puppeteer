@@ -1,10 +1,55 @@
 const express = require('express')
+const puppeteer = require('puppeteer')
 
 const app = express()
 
-const port = process.env.PORT || 3131
+const port = process.env.PORT || 3131 
 
-const screenshot = require('./screenshot')
+
+function screenshot(url) {
+
+  return new Promise((resolve, reject) => {
+
+    ;(async () => {
+
+      const browser = await puppeteer.launch({
+
+        // headless: true, // debug only
+
+        args: ['--no-sandbox']
+
+      })
+
+      const page = await browser.newPage()
+
+      await page.goto(url, {
+
+        waitUntil: ['load', 'networkidle0', 'domcontentloaded']
+
+      })
+
+      await page.waitFor(1000)
+
+      await page.emulateMedia('screen')
+
+      const buffer = await page.screenshot({
+
+        fullPage: true,
+
+        type: 'png'
+
+      })
+
+      await browser.close()
+
+      resolve(buffer)
+
+    })()
+
+  })
+
+}
+
 
 app.get('/', (req, res) => res.status(200).json({ status: 'ok' }))
 
