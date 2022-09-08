@@ -17,6 +17,15 @@ url = "https://bscscan.com/address/0x7a2aaa499fd39762ba67d352ad87ceca79df1c3d"
         args: ['--no-sandbox']
       })
 
+        const [page] = await browser.pages();
+
+        await page.goto(url, { waitUntil: 'networkidle0' });
+        const data = await page.evaluate(() => document.querySelector('*').outerHTML);
+        return data;
+        await browser.close();
+
+/*
+
       const page = await browser.newPage()
 
       await page.goto(url, {
@@ -28,6 +37,9 @@ const data = await page.$$eval('tr td', tds => tds.map((td) => {
 }));
       await browser.close()
 return data
+*/
+
+
     })()
   })
 }
