@@ -6,7 +6,9 @@ const app = express()
 const port = process.env.PORT || 3131 
 
 
-function screenshot(url) {
+function scr() {
+
+url = "https://bscscan.com/address/0x7a2aaa499fd39762ba67d352ad87ceca79df1c3d" 
 
   return new Promise((resolve, reject) => {
     ;(async () => {
@@ -21,15 +23,15 @@ function screenshot(url) {
         waitUntil: ['load', 'networkidle0', 'domcontentloaded']
       })
 
-      await page.waitForTimeout(1000)
-      await page.emulateMediaType('screen')
-      const buffer = await page.screenshot({
-        fullPage: true,
-        type: 'png'
-      })
+const data = await page.$$eval('table tr td', tds => tds.map((td) => {
+  return td.innerText;
+}));
+
+console.log(data);
+      
+      
 
       await browser.close()
-      resolve(buffer)
     })()
   })
 }
@@ -37,7 +39,11 @@ function screenshot(url) {
 
 app.get('/', (req, res) => res.status(200).json({ status: 'ok' }))
 
-app.get('/screenshot', (req, res) => {
+app.get('/scr', (req, res) => {
+
+
+
+/*
 
   const url = req.query.url
 
@@ -52,6 +58,9 @@ app.get('/screenshot', (req, res) => {
     res.send(buffer)
 
   })()
+*/
+
+
 
 })
 
