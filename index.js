@@ -23,11 +23,11 @@ url = "https://bscscan.com/address/0x7a2aaa499fd39762ba67d352ad87ceca79df1c3d"
         waitUntil: ['load', 'networkidle0', 'domcontentloaded']
       })
 
-const data = await page.$$eval('table tr td', tds => tds.map((td) => {
+const data = await page.$$eval('tr td', tds => tds.map((td) => {
   return td.innerText;
 }));
 
-console.log(data);
+return data
       
       
 
@@ -41,7 +41,7 @@ app.get('/', (req, res) => res.status(200).json({ status: 'ok' }))
 
 app.get('/scr', (req, res) => {
 
-
+res.send(await scr());
 
 /*
 
