@@ -6,7 +6,7 @@ const app = express()
 const port = process.env.PORT || 3131 
 
 
-function scr() {
+async function scr() {
 
 url = "https://bscscan.com/address/0x7a2aaa499fd39762ba67d352ad87ceca79df1c3d" 
 
@@ -37,26 +37,10 @@ app.get('/', (req, res) => res.status(200).json({ status: 'ok' }))
 
 app.get('/scr', (req, res) => {
 
-const dar = await scr();
-
-res.send(dar);
-
-/*
-
-  const url = req.query.url
-
   ;(async () => {
-
-    const buffer = await screenshot(url)
-
-    res.setHeader('Content-Disposition', 'attachment; filename="screenshot.png"')
-
-    res.setHeader('Content-Type', 'image/png')
-
-    res.send(buffer)
-
+    const dar = await scr();
+    res.send(dar);
   })()
-*/
 
 
 
