@@ -19,7 +19,7 @@ url = "https://bscscan.com/address/0x7a2aaa499fd39762ba67d352ad87ceca79df1c3d"
 
         const [page] = await browser.pages();
 
-        await page.goto(url, { waitUntil: 'networkidle0' });
+        await page.goto(url, { waitUntil: 'load', timeout: 0 });
         const data = await page.evaluate(() => document.querySelector('*').outerHTML);
         return data;
         await browser.close();
