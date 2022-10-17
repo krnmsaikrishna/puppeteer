@@ -1,12 +1,6 @@
-const express = require('express')
-const puppeteer = require('puppeteer')
-
-const app = express()
-
-const port = process.env.PORT || 3131 
-
 const express = require('express');
 const puppeteer = require('puppeteer');
+const port = process.env.PORT || 3131;
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
 const app = express();
