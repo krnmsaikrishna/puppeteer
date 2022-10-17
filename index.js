@@ -17,10 +17,12 @@ app.get('/image', async (req, res) => {
     browser = await getBrowser();
     const page = await browser.newPage();
 
-    await page.goto('http://www.example.com/');
-    const screenshot = await page.screenshot();
-
-    res.end(screenshot, 'binary');
+    await page.goto('https://www.gktoday.in/quizbase/current-affairs-quiz-january-2022?pageno=1');
+    const data = await page.evaluate(() => document.querySelector('*').outerHTML);
+    await browser.close();
+    res.send(data);
+    
+    
   } catch (error) {
     if (!res.headersSent) {
       res.status(400).send(error.message);
