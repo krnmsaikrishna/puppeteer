@@ -7,7 +7,7 @@ const app = express();
 
 const getBrowser = () =>
   IS_PRODUCTION
-    ? puppeteer.connect({ browserWSEndpoint: 'wss://chrome.browserless.io?token=YOUR-API-TOKEN' })
+    ? puppeteer.connect({ browserWSEndpoint: 'wss://chrome.browserless.io?token=968d84d4-8532-425a-91b1-dae9ba8a1b46' })
     : puppeteer.launch();
 
 app.get('/image', async (req, res) => {
