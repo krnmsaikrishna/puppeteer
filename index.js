@@ -16,7 +16,7 @@ app.get('/source', async (req, res) => {
     browser = await getBrowser();
     const page = await browser.newPage();
     await page.goto(url);
-    const data = await page.evaluate(() => document.querySelector('quiz_print').outerHTML);
+    const data = await page.evaluate(() => document.querySelector('.quiz_print').outerHTML);
     await browser.close();
     res.send(data);
     
