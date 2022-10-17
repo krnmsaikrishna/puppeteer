@@ -5,58 +5,38 @@ const app = express()
 
 const port = process.env.PORT || 3131 
 
+const express = require('express');
+const puppeteer = require('puppeteer');
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 
-async function scr() {
+const app = express();
 
-url = "https://www.gktoday.in/quizbase/current-affairs-quiz-january-2022?pageno=1" 
+const getBrowser = () =>
+  IS_PRODUCTION
+    ? puppeteer.connect({ browserWSEndpoint: 'wss://chrome.browserless.io?token=YOUR-API-TOKEN' })
+    : puppeteer.launch();
 
-  return new Promise((resolve, reject) => {
-    ;(async () => {
-      const browser = await puppeteer.launch({
-        headless: true,
-        args: ['--no-sandbox']
-      })
+app.get('/image', async (req, res) => {
+  let browser = null;
 
-        const [page] = await browser.pages();
+  try {
+    browser = await getBrowser();
+    const page = await browser.newPage();
 
-        await page.goto(url, { waitUntil: 'load', timeout: 0 });
-        const data = await page.evaluate(() => document.querySelector('*').outerHTML);
-        return data;
-        await browser.close();
+    await page.goto('http://www.example.com/');
+    const screenshot = await page.screenshot();
 
-/*
+    res.end(screenshot, 'binary');
+  } catch (error) {
+    if (!res.headersSent) {
+      res.status(400).send(error.message);
+    }
+  } finally {
+    if (browser) {
+      browser.close();
+    }
+  }
+});
 
-      const page = await browser.newPage()
+app.listen(port, () => console.log('Listening on PORT: 8080'));
 
-      await page.goto(url, {
-        waitUntil: ['load', 'networkidle0', 'domcontentloaded']
-      })
-
-const data = await page.$$eval('tr td', tds => tds.map((td) => {
-  return td.innerText;
-}));
-      await browser.close()
-return data
-*/
-
-
-    })()
-  })
-}
-
-
-app.get('/', (req, res) => res.status(200).json({ status: 'ok' }))
-
-app.get('/scr', (req, res) => {
-
-  ;(async () => {
-    const dar = await scr();
-    res.send(dar);
-  })()
-
-
-
-})
-
-
-app.listen(port, () => console.log(`app listening on port ${port}!`))
