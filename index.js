@@ -8,7 +8,7 @@ const port = process.env.PORT || 3131
 
 async function scr() {
 
-url = "https://bscscan.com/address/0x7a2aaa499fd39762ba67d352ad87ceca79df1c3d" 
+url = "https://www.gktoday.in/quizbase/current-affairs-quiz-january-2022?pageno=1" 
 
   return new Promise((resolve, reject) => {
     ;(async () => {
