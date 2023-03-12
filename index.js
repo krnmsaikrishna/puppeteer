@@ -11,12 +11,14 @@ const getBrowser = () =>
 app.get('/source', async (req, res) => {
   let browser = null;
   let url = decodeURI(req.query.url);
+  
+  res.send(url);
 
   try {
     browser = await getBrowser();
     const page = await browser.newPage();
     await page.goto(url);
-    const data = await page.evaluate(() => document.querySelector('.quiz_print').outerHTML);
+    const data = await page.evaluate(() => document.querySelector('body').outerHTML);
     await browser.close();
     res.send(data);
     
