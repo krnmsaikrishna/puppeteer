@@ -11,8 +11,7 @@ const getBrowser = () =>
 app.get('/source', async (req, res) => {
   let browser = null;
   let url = decodeURI(req.query.url);
-  
-  res.send(url);
+ 
 
   try {
     browser = await getBrowser();
